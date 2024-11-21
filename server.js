@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 // Database setup
-const databasePath = path.join(__dirname, 'user.db'); // Initialize databasePath first
+const databasePath = path.join(__dirname, 'user.db'); 
 const db = new sqlite3(databasePath); 
 
 const jwtSecret = crypto.randomBytes(64).toString('hex');
