@@ -1,7 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose()
+const sqlite3 = require('better-sqlite3');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
@@ -11,21 +11,13 @@ const { resourceLimits } = require('worker_threads');
 const app = express();
 app.use(express.json());
 
+const db = new sqlite3(databasePath);
 // Database setup
 const databasePath = path.join(__dirname, 'user.db');
 const jwtSecret = crypto.randomBytes(64).toString('hex');
 
 const PORT = process.env.PORT || 4040;
 
-// Initialize the database
-let db = new sqlite3.Database(databasePath,sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        console.error('Error opening database:', err.message);
-    } else {
-        console.log('Connected to the SQLite database.');
-        createTables(); // Call to create tables on startup
-    }
-});
 
 // Table creation function
 const createTables = () => {
