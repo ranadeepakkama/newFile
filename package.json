@@ -17,7 +17,7 @@
     "start": "node server.js",
     "preinstall": "npm rebuild sqlite3 --build-from-source"
   },
-  "name": "dummynodejs",
+  "name": "todoserver",
   "version": "1.0.0",
   "main": "server.js",
   "author": "",
