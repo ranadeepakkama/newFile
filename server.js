@@ -1,7 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const cors = require('cors');
-const sqlite3 = require('sqlite3')
+const sqlite3 = require('sqlite3').verbose()
 const path = require('path');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
