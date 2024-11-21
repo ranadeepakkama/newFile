@@ -11,9 +11,10 @@ const { resourceLimits } = require('worker_threads');
 const app = express();
 app.use(express.json());
 
-const db = new sqlite3(databasePath);
 // Database setup
-const databasePath = path.join(__dirname, 'user.db');
+const databasePath = path.join(__dirname, 'user.db'); // Initialize databasePath first
+const db = new sqlite3(databasePath); 
+
 const jwtSecret = crypto.randomBytes(64).toString('hex');
 
 const PORT = process.env.PORT || 4040;
