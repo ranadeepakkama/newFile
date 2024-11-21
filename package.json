@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ranadeepakkama/newFile#readme",
   "dependencies": {
-    "better-sqlite3": "^11.5.0"
+    "better-sqlite3": "^11.5.0",
+    "express": "^4.21.1"
   }
 }
