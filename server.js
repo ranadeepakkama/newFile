@@ -133,8 +133,7 @@ app.post('/register', (req, res) => {
 
 // Get user details
 app.get('/userDetails',authenticateToken, (req, res) => {
-    const {userId} = req.body 
-    const getUserDetails = `SELECT * FROM register  WHERE username = ?`;
+    const getUserDetails = `SELECT * FROM register`;
     db.all(getUserDetails,[userId], (err, rows) => {
         if (err) {
             console.error('Error fetching user details:', err.message);
