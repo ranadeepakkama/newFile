@@ -132,19 +132,20 @@ app.post('/register', (req, res) => {
 });
 
 // Get user details
-app.get('/userDetails', (req, res) => {
-    const getUserDetails = `SELECT * FROM register`;
-    db.all(getUserDetails, (err, rows) => {
+app.get('/userDetails',authenticateToken, (req, res) => {
+    const {userId} = req.body 
+    const getUserDetails = `SELECT * FROM register  WHERE username = ?`;
+    db.all(getUserDetails,[userId], (err, rows) => {
         if (err) {
             console.error('Error fetching user details:', err.message);
-            return res.status(500).json({ message: 'Error fetching user details' });
+            res.status(500).json({ message: 'Error fetching user details' });
         }
-        res.status(200).json({ result: rows });
+        res.status(200).json({rows});
     });
 });
 
 // Add a new todo
-app.post('/todoPost/:userId', (req, res) => {
+app.post('/todoPost/:userId',authenticateToken, (req, res) => {
     const { task, status } = req.body;
     const userId = req.params.userId;
 
@@ -159,7 +160,7 @@ app.post('/todoPost/:userId', (req, res) => {
 });
 
 // Get user's todo list
-app.get('/todoList/:userId', (req, res) => {
+app.get('/todoList/:userId',authenticateToken, (req, res) => {
     const userId = req.params.userId;
 
     const todoListQuery = `SELECT * FROM todo WHERE userId = ?`;
@@ -173,7 +174,7 @@ app.get('/todoList/:userId', (req, res) => {
 });
 
 // Update a todo
-app.put('/updateTodo/:id', (req, res) => {
+app.put('/updateTodo/:id', authenticateToken, (req, res) => {
     const id = req.params.id;
     const { task, status } = req.body;
 
