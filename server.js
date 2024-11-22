@@ -163,7 +163,7 @@ app.post('/todoPost/:userId',authenticateToken, (req, res) => {
 app.get('/todoList/:userId',authenticateToken, (req, res) => {
     const userId = req.params.userId;
 
-    const todoListQuery = `SELECT * FROM todo WHERE userId = ?`;
+    const todoListQuery = `SELECT * FROM todo WHERE userId = ${sumo}`;
     db.all(todoListQuery, [userId], (err, list) => {
         if (err) {
             console.error('Error fetching todos:', err.message);
@@ -201,6 +201,17 @@ app.delete('/deleteTodo/:id', (req, res) => {
         res.status(200).json({ message: 'Todo deleted successfully' });
     });
 });
+
+
+app.delete('/deleteUsers', (req, res) => {
+    try{
+        const deleteQuery = `DELETE FROM register`
+        db.run(deleteQuery)
+        res.status(200).json({message: 'successfully deleted'})
+    }catch(err){
+        res.status(500).json({message: err.message})
+    }
+})
 
 // Start the server
 app.listen(PORT, () => {
