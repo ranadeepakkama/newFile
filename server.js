@@ -80,7 +80,7 @@ const authenticateToken = (req, res, next) => {
         if (err) {
             return res.status(403).json({ error: 'Invalid or expired token' });
         }
-        req.user = user; // Attach user info to request
+        req.user = user; 
         next();
     });
 };
@@ -132,7 +132,7 @@ app.post('/register', (req, res) => {
 });
 
 // Get user details
-app.get('/userDetails', authenticateToken, (req, res) => {
+app.get('/userDetails', (req, res) => {
     const getUserDetails = `SELECT * FROM register`;
     db.all(getUserDetails, (err, rows) => {
         if (err) {
@@ -144,7 +144,7 @@ app.get('/userDetails', authenticateToken, (req, res) => {
 });
 
 // Add a new todo
-app.post('/todoPost/:userId', authenticateToken, (req, res) => {
+app.post('/todoPost/:userId', (req, res) => {
     const { task, status } = req.body;
     const userId = req.params.userId;
 
@@ -159,7 +159,7 @@ app.post('/todoPost/:userId', authenticateToken, (req, res) => {
 });
 
 // Get user's todo list
-app.get('/todoList/:userId', authenticateToken, (req, res) => {
+app.get('/todoList/:userId', (req, res) => {
     const userId = req.params.userId;
 
     const todoListQuery = `SELECT * FROM todo WHERE userId = ?`;
