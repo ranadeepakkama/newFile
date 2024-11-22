@@ -140,7 +140,7 @@ app.get('/userDetails',authenticateToken, (req, res) => {
             console.error('Error fetching user details:', err.message);
             res.status(500).json({ message: 'Error fetching user details' });
         }
-        res.status(200).json({rows});
+        res.status(200).json({result : rows});
     });
 });
 
